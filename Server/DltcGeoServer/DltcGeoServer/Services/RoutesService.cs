@@ -61,12 +61,8 @@ namespace DltcGeoServer.Services
                 }
             }
 
-            if (resultRoute != null)
-            {
-                
-                if (resultRoute.TotalDistance > RoutesService.GetMinLength(start, end) * 2)
-                    throw new RouteNotFoundException("Wrong target point");
-            }
+            if (resultRoute != null && resultRoute.TotalDistance > (GetMinLength(start, end) * 2))
+                throw new RouteNotFoundException("Wrong target point");
 
             return resultRoute
                 ?.Shape

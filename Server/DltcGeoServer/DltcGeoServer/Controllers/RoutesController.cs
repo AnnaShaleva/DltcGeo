@@ -17,6 +17,7 @@ namespace DltcGeoServer.Controllers
         {
             _routesService = routesService ?? new RoutesService();
         }
+
         // GET api/routes
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -35,7 +36,7 @@ namespace DltcGeoServer.Controllers
                 return BadRequest("Number of points should be > 1");
 
             var profiles = new List<Profile>();
-            foreach(var vehicle in vehicles)
+            foreach (var vehicle in vehicles)
             {
                 switch (vehicle)
                 {
