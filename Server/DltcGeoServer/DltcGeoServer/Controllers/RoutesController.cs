@@ -77,10 +77,10 @@ namespace DltcGeoServer.Controllers
                             start = point;
                             break;
                         default:
+                            // Throw this point, don't change start point
                             break;
 
-                    }
-                    // Throw this point, don't change start point
+                    }                    
                 }
             }
 
