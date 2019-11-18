@@ -45,21 +45,37 @@ namespace DltcGeoServer.Services
 
             foreach (var profile in profiles)
             {
+
+                //try
+                //{
+                    
+                //}
+                //catch (ResolveFailedException e)
+                //{
+                //    Debug.WriteLine($"Point was thrown: {end.Latitude} {end.Longitude}");
+                //}
+                //var startEdge = _router.TryResolve(profile, (float)start.Latitude, (float)start.Longitude, searchDistanceInMeter: 20);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2 });
+                //var endEdge = _router.TryResolve(profile, (float)end.Latitude, (float)end.Longitude, searchDistanceInMeter: 20);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2});
+                //if (startEdge.IsError)
+                //    throw new RouteNotFoundException("start");
+                //if(endEdge.IsError)
+                //    throw new RouteNotFoundException("end");
+
                 try
                 {
-                    var startEdge = _router.Resolve(profile, (float)start.Latitude, (float)start.Longitude);
-                    var endEdge = _router.Resolve(profile, (float)end.Latitude, (float)end.Longitude);
+                    var startEdge = _router.Resolve(profile, (float)start.Latitude, (float)start.Longitude, searchDistanceInMeter:100);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2 });
+                    var endEdge = _router.Resolve(profile, (float)end.Latitude, (float)end.Longitude, searchDistanceInMeter:100);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2});
                     var route = _router.Calculate(profile, startEdge, endEdge);
                     if (resultRoute == null || route.TotalDistance < resultRoute.TotalDistance)
                         resultRoute = route;
                 }
-                catch (ResolveFailedException e)
-                {
-                    Debug.WriteLine($"Point was thrown: {end.Latitude} {end.Longitude}");
-                }
                 catch (RouteNotFoundException e)
                 {
                     Debug.WriteLine($"Route was not found between: ({start.Latitude} {start.Longitude}) and ({end.Latitude} {end.Longitude})");
+                }
+                catch (ResolveFailedException e)
+                {
+                    Debug.WriteLine($"Point was thrown: {end.Latitude} {end.Longitude}");
                 }
             }
 
