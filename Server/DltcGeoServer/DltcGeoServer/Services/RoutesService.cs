@@ -47,8 +47,8 @@ namespace DltcGeoServer.Services
             {
                 try
                 {
-                    var startEdge = _router.Resolve(profile, (float)start.Latitude, (float)start.Longitude, searchDistanceInMeter: 10);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2 });
-                    var endEdge = _router.Resolve(profile, (float)end.Latitude, (float)end.Longitude, searchDistanceInMeter: 10);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2});
+                    var startEdge = _router.Resolve(profile, (float)start.Latitude, (float)start.Longitude, searchDistanceInMeter: 20);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2 });
+                    var endEdge = _router.Resolve(profile, (float)end.Latitude, (float)end.Longitude, searchDistanceInMeter: 20);//, settings: new Itinero.Algorithms.Search.ResolveSettings() { MinIslandSize = 2});
                     var route = _router.Calculate(profile, startEdge, endEdge);
                     if (resultRoute == null || route.TotalDistance < resultRoute.TotalDistance)
                         resultRoute = route;
