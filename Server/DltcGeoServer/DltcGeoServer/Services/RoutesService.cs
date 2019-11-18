@@ -53,11 +53,11 @@ namespace DltcGeoServer.Services
                 }
                 catch (ResolveFailedException e)
                 {
-                    Debug.WriteLine($"Выкинута точка {end.Latitude} {end.Longitude}");
+                    Debug.WriteLine($"Point was thrown: {end.Latitude} {end.Longitude}");
                 }
                 catch (RouteNotFoundException e)
                 {
-                    Debug.WriteLine($"Путь не найден между точками: ({start.Latitude} {start.Longitude}) и ({end.Latitude} {end.Longitude})");
+                    Debug.WriteLine($"Route was not found between: ({start.Latitude} {start.Longitude}) and ({end.Latitude} {end.Longitude})");
                 }
             }
 
@@ -84,7 +84,7 @@ namespace DltcGeoServer.Services
                 }
                 catch (Exception e)
                 {
-                    Debug.WriteLine($"Невозможность");
+                    Debug.WriteLine($"Failed to build route");
                 }
             }
 
