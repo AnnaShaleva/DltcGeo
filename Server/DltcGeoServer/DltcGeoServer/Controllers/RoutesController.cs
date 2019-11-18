@@ -2,6 +2,7 @@
 using System.Linq;
 using DltcGeoServer.Models;
 using DltcGeoServer.Services;
+using Itinero.Exceptions;
 using Itinero.Profiles;
 using Microsoft.AspNetCore.Mvc;
 
@@ -54,16 +55,23 @@ namespace DltcGeoServer.Controllers
 
             foreach (var point in points.Skip(1))
             {
-                var routePoints = _routesService.GetPath(start, point, profiles);
-                if (routePoints != null)
-                    route.AddRange(routePoints);
-                else
+                try
                 {
-                    route.Add(start);
-                    route.Add(point);
-                }                    
+                    var routePoints = _routesService.GetPath(start, point, profiles);
+                    if (routePoints != null)
+                        route.AddRange(routePoints);
+                    else
+                    {
+                        route.Add(start);
+                        route.Add(point);
+                    }
 
-                start = point;
+                    start = point;
+                }
+                catch (RouteNotFoundException e)
+                {
+                    // Throw this point, don't change start point
+                }
             }
 
             return Ok(route);

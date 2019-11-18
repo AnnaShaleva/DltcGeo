@@ -61,6 +61,13 @@ namespace DltcGeoServer.Services
                 }
             }
 
+            if (resultRoute != null)
+            {
+                
+                if (resultRoute.TotalDistance > RoutesService.GetMinLength(start, end) * 2)
+                    throw new RouteNotFoundException("Wrong target point");
+            }
+
             return resultRoute
                 ?.Shape
                 ?.Select(p => new Point
@@ -95,6 +102,13 @@ namespace DltcGeoServer.Services
                     Latitude = p.Latitude,
                     Longitude = p.Longitude
                 });
+        }
+
+        private static double GetMinLength(Point start, Point end)
+        {
+            var p = Math.PI / 180;
+            var a = 0.5 - Math.Cos((end.Latitude - start.Latitude) * p) / 2 + Math.Cos(start.Latitude * p) * Math.Cos(end.Latitude * p) * (1 - Math.Cos((end.Longitude - start.Longitude) * p)) / 2;
+            return 12742 * Math.Asin(Math.Sqrt(Math.Abs(a))) * 1000;
         }
     }
 }
