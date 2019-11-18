@@ -42,7 +42,6 @@ namespace DltcGeoServer
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
             app.UseMvc();
         }
     }
