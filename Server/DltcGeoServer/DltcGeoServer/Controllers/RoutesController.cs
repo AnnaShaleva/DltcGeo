@@ -71,6 +71,15 @@ namespace DltcGeoServer.Controllers
                 }
                 catch (RouteNotFoundException e)
                 {
+                    switch (e.Message)
+                    {
+                        case "start":
+                            start = point;
+                            break;
+                        default:
+                            break;
+
+                    }
                     // Throw this point, don't change start point
                 }
             }
