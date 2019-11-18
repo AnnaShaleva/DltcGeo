@@ -93,8 +93,9 @@ def map(request):
     for point in points:
         data.append({"latitude": point[0], "longitude": point[1]})
 
+    #return JsonResponse(data, safe=False) 
 
-    points_raw = requests.post('http://srv02.dltc.spbu.ru:8080/api/routes', json=data)
+    points_raw = requests.post('http://srv02.dltc.spbu.ru:8080/api/routes/paired?vehicle=car&vehicle=pedestrian', json=data)
     points_json = points_raw.json()
 
     #return JsonResponse({"response": points_json}, safe=False)
