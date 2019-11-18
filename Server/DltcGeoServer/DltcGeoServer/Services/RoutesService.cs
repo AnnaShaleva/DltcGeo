@@ -47,7 +47,9 @@ namespace DltcGeoServer.Services
             {
                 try
                 {
-                    var route = _router.Calculate(profile, (float)start.Latitude, (float)start.Longitude, (float)end.Latitude, (float)end.Longitude);
+                    var startEdge = _router.Resolve(profile, (float)start.Latitude, (float)start.Longitude);
+                    var endEdge = _router.Resolve(profile, (float)end.Latitude, (float)end.Longitude);
+                    var route = _router.Calculate(profile, startEdge, endEdge);
                     if (resultRoute == null || route.TotalDistance < resultRoute.TotalDistance)
                         resultRoute = route;
                 }
