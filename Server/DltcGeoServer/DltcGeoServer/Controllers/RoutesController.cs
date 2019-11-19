@@ -62,16 +62,16 @@ namespace DltcGeoServer.Controllers
                     if (routePoints != null)
                     {
                         route.AddRange(routePoints);
-                        start = point;
-                    }
                         
+                    }
+
                     //else
                     //{
-                     //   route.Add(start);
-                      //  route.Add(point);
+                    //   route.Add(start);
+                    //  route.Add(point);
                     //}
+                    start = point;
 
-                    
                 }
                 catch (RouteNotFoundException e)
                 {
