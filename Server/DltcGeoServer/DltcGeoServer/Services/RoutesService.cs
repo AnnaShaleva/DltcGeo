@@ -60,17 +60,17 @@ namespace DltcGeoServer.Services
                     if (resultRoute == null || route.TotalDistance < resultRoute.TotalDistance)
                         resultRoute = route;
                 }
-                //catch (RouteNotFoundException e)
-                //{
-                //    Debug.WriteLine($"Route was not found between: ({start.Latitude} {start.Longitude}) and ({end.Latitude} {end.Longitude})");
-                //}
+                catch (RouteNotFoundException e)
+                {
+                    Debug.WriteLine($"Route was not found between: ({start.Latitude} {start.Longitude}) and ({end.Latitude} {end.Longitude})");
+                }
                 catch (ResolveFailedException e)
                 {
                     Debug.WriteLine($"Point was thrown: {end.Latitude} {end.Longitude}");
                 }
             }
 
-            if (resultRoute != null && resultRoute.TotalDistance > (GetMinLength(start, end) * 2))
+            if (resultRoute != null && resultRoute.TotalDistance > (GetMinLength(start, end) * 1.5))
                 throw new RouteNotFoundException("Wrong target point");
 
             return resultRoute
